@@ -9,6 +9,14 @@
 </head>
 <body>
 	<div style="text-align: center;">
+		<form action="runAggiornamentoForm">
+			<input name="newcitta" type="submit" value="NuovaCitta"> <input
+				name="idCitta" type="hidden" value="0"> <input
+				name="countryCode" type="hidden" value=" ">
+		</form>
+		<br>
+
+
 		<c:forEach items="${allcontinents}" var="continente">
 			<a href="runNazioni?continente=${continente}"> ${continente} </a>
 			<br>
