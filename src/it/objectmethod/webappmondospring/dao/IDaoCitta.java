@@ -9,5 +9,7 @@ public interface IDaoCitta {
 	public List<Citta> getCitiesByNation(String countrycode);
 	public void eliminaCitta(int idCitta);
 	public Citta cittaDaModificare(int id);
+	public void aggiornaCitta(Citta cittaDaAggiornare);
+	public void inserisciCitta(Citta cittaDaInserire);
 	
 }

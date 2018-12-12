@@ -111,56 +111,56 @@ public class DaoNazioneImpl implements IDaoNazione{
 		return list;
 	}
 
-//	@Override
-//	public List<Nazione> allNations() {
-//
-//		List<Nazione> list = null;
-//		Connection conn = ConnectionManager.getConnection();
-//		PreparedStatement prepStat = null;
-//		try{
-//
-//			String sql = "SELECT name, code, population from country";
-//			prepStat= conn.prepareStatement(sql);
-//			ResultSet rs = prepStat.executeQuery();
-//			list = new ArrayList<>();
-//
-//			while(rs.next()){
-//				Nazione nation= new Nazione();
-//				String name = rs.getString("name");
-//				String code= rs.getString("code");
-//				int population = rs.getInt("population");
-//				nation.setNomeNazione(name);
-//				nation.setCode(code);
-//				nation.setPopolazione(population);
-//				list.add(nation);
-//			}
-//
-//			rs.close();
-//			prepStat.close();
-//			conn.close();
-//		}catch(SQLException se){
-//
-//			se.printStackTrace();
-//		}catch(Exception e){
-//
-//			e.printStackTrace();
-//		}finally{
-//
-//			try{
-//				if(prepStat!=null)
-//					prepStat.close();
-//			}catch(SQLException se2){
-//			}
-//			try{
-//				if(conn!=null)
-//					conn.close();
-//			}catch(SQLException se){
-//				se.printStackTrace();
-//			}
-//		}
-//		System.out.println("Goodbye!");
-//		return list;
-//
-//	}
+	@Override
+	public List<Nazione> allNations() {
+
+		List<Nazione> list = null;
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement prepStat = null;
+		try{
+
+			String sql = "SELECT name, code, population from country";
+			prepStat= conn.prepareStatement(sql);
+			ResultSet rs = prepStat.executeQuery();
+			list = new ArrayList<>();
+
+			while(rs.next()){
+				Nazione nation= new Nazione();
+				String name = rs.getString("name");
+				String code= rs.getString("code");
+				int population = rs.getInt("population");
+				nation.setName(name);
+				nation.setCode(code);
+				nation.setPopulation(population);
+				list.add(nation);
+			}
+
+			rs.close();
+			prepStat.close();
+			conn.close();
+		}catch(SQLException se){
+
+			se.printStackTrace();
+		}catch(Exception e){
+
+			e.printStackTrace();
+		}finally{
+
+			try{
+				if(prepStat!=null)
+					prepStat.close();
+			}catch(SQLException se2){
+			}
+			try{
+				if(conn!=null)
+					conn.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+		System.out.println("Goodbye!");
+		return list;
+
+	}
 
 }

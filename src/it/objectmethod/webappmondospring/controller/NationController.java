@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import it.objectmethod.webappmondospring.dao.impl.DaoNazioneImpl;
 import it.objectmethod.webappmondospring.dao.IDaoNazione;
+import it.objectmethod.webappmondospring.model.Citta;
 import it.objectmethod.webappmondospring.model.Nazione;
 
 @Controller
@@ -35,5 +36,12 @@ public class NationController {
 		model.addAttribute("nationsbycontinent", nationsbycontinent);
 		return "listanazioni";
 	}
+	
+//	@GetMapping("/runAggiornamentoForm")
+//	public String aggiornamentoForm(ModelMap model) {
+//		List<Nazione> list = daoNazione.allNations();
+//		model.addAttribute("allNations", list);
+//		return "modificaSalvaCitta";
+//	}
 	
 }

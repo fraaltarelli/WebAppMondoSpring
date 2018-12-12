@@ -159,50 +159,50 @@ public class DaoCittaImpl implements IDaoCitta{
 
 	}
 
-//	@Override
-//	public void aggiornaCitta(Citta cittaDaAggiornare) {
-//
-//		Connection conn = ConnectionManager.getConnection();
-//		PreparedStatement prepStat = null;
-//
-//		try{
-//
-//			String sql = "UPDATE city " + 
-//					" SET name=?, countrycode=?, district=?, population= ?" + 
-//					" WHERE id=?";
-//			prepStat= conn.prepareStatement(sql);
-//			prepStat.setString(1, cittaDaAggiornare.getNomeCitta());
-//			prepStat.setString(2, cittaDaAggiornare.getCountryCode());
-//			prepStat.setString(3, cittaDaAggiornare.getDistretto());
-//			prepStat.setInt(4, cittaDaAggiornare.getPopolazione());
-//			prepStat.setInt(5, cittaDaAggiornare.getId());
-//			prepStat.executeUpdate();	
-//			prepStat.close();
-//			conn.close();
-//		}catch(SQLException se){
-//
-//			se.printStackTrace();
-//		}catch(Exception e){
-//
-//			e.printStackTrace();
-//		}finally{
-//
-//			try{
-//				if(prepStat!=null)
-//					prepStat.close();
-//			}catch(SQLException se2){
-//			}
-//			try{
-//				if(conn!=null)
-//					conn.close();
-//			}catch(SQLException se){
-//				se.printStackTrace();
-//			}
-//		}
-//		System.out.println("Goodbye!");
-//		return;
-//
-//	}
+	@Override
+	public void aggiornaCitta(Citta cittaDaAggiornare) {
+
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement prepStat = null;
+
+		try{
+
+			String sql = "UPDATE city " + 
+					" SET name=?, countrycode=?, district=?, population= ?" + 
+					" WHERE id=?";
+			prepStat= conn.prepareStatement(sql);
+			prepStat.setString(1, cittaDaAggiornare.getName());
+			prepStat.setString(2, cittaDaAggiornare.getCountryCode());
+			prepStat.setString(3, cittaDaAggiornare.getDistrict());
+			prepStat.setInt(4, cittaDaAggiornare.getPopulation());
+			prepStat.setInt(5, cittaDaAggiornare.getId());
+			prepStat.executeUpdate();	
+			prepStat.close();
+			conn.close();
+		}catch(SQLException se){
+
+			se.printStackTrace();
+		}catch(Exception e){
+
+			e.printStackTrace();
+		}finally{
+
+			try{
+				if(prepStat!=null)
+					prepStat.close();
+			}catch(SQLException se2){
+			}
+			try{
+				if(conn!=null)
+					conn.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+		System.out.println("Goodbye!");
+		return;
+
+	}
 
 	@Override
 	public Citta cittaDaModificare(int id) {
@@ -258,48 +258,48 @@ public class DaoCittaImpl implements IDaoCitta{
 		return city;
 	}
 
-//	@Override
-//	public void inserisciCitta(Citta cittaDaInserire) {
-//		Connection conn = ConnectionManager.getConnection();
-//		PreparedStatement prepStat = null;
-//
-//		try{
-//
-//			String sql = "INSERT INTO city (id, Name, CountryCode, District, Population)" + 
-//					" values (?, ?, ?, ?, ?)";
-//			prepStat= conn.prepareStatement(sql);
-//			prepStat.setInt(1, cittaDaInserire.getId());
-//			prepStat.setString(2, cittaDaInserire.getNomeCitta());
-//			prepStat.setString(3, cittaDaInserire.getCountryCode());
-//			prepStat.setString(4, cittaDaInserire.getDistretto());
-//			prepStat.setInt(5, cittaDaInserire.getPopolazione());
-//			prepStat.executeUpdate();	
-//
-//			prepStat.close();
-//			conn.close();
-//		}catch(SQLException se){
-//
-//			se.printStackTrace();
-//		}catch(Exception e){
-//
-//			e.printStackTrace();
-//		}finally{
-//
-//			try{
-//				if(prepStat!=null)
-//					prepStat.close();
-//			}catch(SQLException se2){
-//			}
-//			try{
-//				if(conn!=null)
-//					conn.close();
-//			}catch(SQLException se){
-//				se.printStackTrace();
-//			}
-//		}
-//		System.out.println("Goodbye!");
-//		return;
-//
-//	}
+	@Override
+	public void inserisciCitta(Citta cittaDaInserire) {
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement prepStat = null;
+
+		try{
+
+			String sql = "INSERT INTO city (id, Name, CountryCode, District, Population)" + 
+					" values (?, ?, ?, ?, ?)";
+			prepStat= conn.prepareStatement(sql);
+			prepStat.setInt(1, cittaDaInserire.getId());
+			prepStat.setString(2, cittaDaInserire.getName());
+			prepStat.setString(3, cittaDaInserire.getCountryCode());
+			prepStat.setString(4, cittaDaInserire.getDistrict());
+			prepStat.setInt(5, cittaDaInserire.getPopulation());
+			prepStat.executeUpdate();	
+
+			prepStat.close();
+			conn.close();
+		}catch(SQLException se){
+
+			se.printStackTrace();
+		}catch(Exception e){
+
+			e.printStackTrace();
+		}finally{
+
+			try{
+				if(prepStat!=null)
+					prepStat.close();
+			}catch(SQLException se2){
+			}
+			try{
+				if(conn!=null)
+					conn.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+		System.out.println("Goodbye!");
+		return;
+
+	}
 
 }
