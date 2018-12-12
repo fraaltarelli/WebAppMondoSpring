@@ -64,63 +64,65 @@ public class DaoCittaImpl implements IDaoCitta{
 		return list;
 	}
 
-//	@Override
-//	public List<Citta> cercaCitta(String cittaCercata) {
-//
-//		List<Citta> list = null;
-//		Connection conn = ConnectionManager.getConnection();
-//		PreparedStatement prepStat = null;
-//		try{
-//
-//			String sql = "SELECT id, name, district, population, countrycode from city where name like ?";
-//			prepStat= conn.prepareStatement(sql);
-//			prepStat.setString(1, cittaCercata+ "%");
-//			ResultSet rs =prepStat.executeQuery();
-//			list = new ArrayList<>();
-//
-//			while(rs.next()){
-//				Citta city= new Citta();
-//
-//				int id= rs.getInt("id");
-//				String name = rs.getString("name");
-//				String district = rs.getString("district");
-//				int population = rs.getInt("population");
-//				String countryCode = rs.getString("countrycode");
-//				city.setId(id);
-//				city.setNomeCitta(name);
-//				city.setDistretto(district);
-//				city.setPopolazione(population);
-//				city.setCountryCode(countryCode);
-//				list.add(city);
-//			}
-//
-//
-//			rs.close();
-//			prepStat.close();
-//			conn.close();
-//		}catch(SQLException se){
-//
-//			se.printStackTrace();
-//		}catch(Exception e){
-//
-//			e.printStackTrace();
-//		}finally{
-//
-//			try{
-//				if(prepStat!=null)
-//					prepStat.close();
-//			}catch(SQLException se2){
-//			}
-//			try{
-//				if(conn!=null)
-//					conn.close();
-//			}catch(SQLException se){
-//				se.printStackTrace();
-//			}
-//		}
-//		System.out.println("Goodbye!");
-//		return list;
-//	}
+
+	@Override
+	public List<Citta> cercaCitta(String cittaCercata) {
+
+		List<Citta> list = null;
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement prepStat = null;
+		try{
+
+			String sql = "SELECT id, name, district, population, countrycode from city where name like ?";
+			prepStat= conn.prepareStatement(sql);
+			prepStat.setString(1, cittaCercata+ "%");
+			ResultSet rs =prepStat.executeQuery();
+			list = new ArrayList<>();
+
+			while(rs.next()){
+				Citta city= new Citta();
+
+				int id= rs.getInt("id");
+				String name = rs.getString("name");
+				String district = rs.getString("district");
+				int population = rs.getInt("population");
+				String countryCode = rs.getString("countrycode");
+				city.setId(id);
+				city.setName(name);
+				city.setDistrict(district);
+				city.setPopulation(population);
+				city.setCountryCode(countryCode);
+				list.add(city);
+			}
+
+
+			rs.close();
+			prepStat.close();
+			conn.close();
+		}catch(SQLException se){
+
+			se.printStackTrace();
+		}catch(Exception e){
+
+			e.printStackTrace();
+		}finally{
+
+			try{
+				if(prepStat!=null)
+					prepStat.close();
+			}catch(SQLException se2){
+			}
+			try{
+				if(conn!=null)
+					conn.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+		System.out.println("Goodbye!");
+		return list;
+	}
+
 
 	@Override
 	public void eliminaCitta(int idCitta) {

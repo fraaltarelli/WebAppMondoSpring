@@ -33,10 +33,19 @@ public class CityController {
 		return "listaCitta";
 	}
 	
+	@GetMapping("/listaCittaCercate")
+	public String cittaCercate(@RequestParam("cittacercata") String cittaCercata, ModelMap model) {
+		List<Citta> listaCitta = daoCitta.cercaCitta(cittaCercata);
+		model.addAttribute("listaCitta", listaCitta);
+		return "listaCitta";
+	}
+	
+	
 	@GetMapping("/runEliminaCitta")
 	public String eliminaCitta(@RequestParam("idCitta") Integer idCitta, @RequestParam("countryCode") String countryCode, ModelMap model) {
 		daoCitta.eliminaCitta(idCitta);
 		List<Citta> listaCitta = daoCitta.getCitiesByNation(countryCode);
+		model.addAttribute("messaggio", "Eliminazione riuscita");
 		model.addAttribute("listaCitta", listaCitta);
 		return "listaCitta";
 	}
@@ -67,6 +76,7 @@ public class CityController {
 			daoCitta.inserisciCitta(cittaDaSalvare);
 		}
 		List<Citta> listaCitta = daoCitta.getCitiesByNation(countrycode);
+		model.addAttribute("messaggio", "Salvataggio riuscito");
 		model.addAttribute("listaCitta", listaCitta);
 		return "listaCitta";
 	}

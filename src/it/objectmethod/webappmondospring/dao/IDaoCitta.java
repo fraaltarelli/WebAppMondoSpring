@@ -11,5 +11,6 @@ public interface IDaoCitta {
 	public Citta cittaDaModificare(int id);
 	public void aggiornaCitta(Citta cittaDaAggiornare);
 	public void inserisciCitta(Citta cittaDaInserire);
+	public List<Citta> cercaCitta(String cittaCercata);
 	
 }

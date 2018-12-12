@@ -9,6 +9,13 @@
 </head>
 <body>
 	<div style="text-align: center;">
+
+		<form action="listaCittaCercate">
+			Cerca Città: <input type="text" name="cittacercata" size="10px"
+				autocomplete="off">
+		</form>
+		<br>
+
 		<form action="runAggiornamentoForm">
 			<input name="newcitta" type="submit" value="NuovaCitta"> <input
 				name="idCitta" type="hidden" value="0"> <input
