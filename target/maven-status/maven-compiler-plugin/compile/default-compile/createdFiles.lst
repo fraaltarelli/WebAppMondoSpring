@@ -1,0 +1,4 @@
+it\objectmethod\webappmondospring\model\Nazione.class
+it\objectmethod\webappmondospring\dao\IDaoNazione.class
+it\objectmethod\webappmondospring\dao\impl\DaoNazioneImpl.class
+it\objectmethod\webappmondospring\model\mapper\NazioneMapper.class
