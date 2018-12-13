@@ -16,7 +16,6 @@
 		</a> <br>
 
 
-
 		<table width="75%" border="1" align="center">
 			<tr>
 				<th width="28%">NomeCitta</th>

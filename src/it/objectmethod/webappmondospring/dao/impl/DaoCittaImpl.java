@@ -7,301 +7,73 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.objectmethod.webappmondospring.config.ConnectionManager;
+import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+
+import it.objectmethod.webappmondospring.model.mapper.CityMapper;
+//import it.objectmethod.webappmondospring.config.ConnectionManager;
 import it.objectmethod.webappmondospring.dao.IDaoCitta;
 import it.objectmethod.webappmondospring.model.Citta;
 
 public class DaoCittaImpl implements IDaoCitta{
-
+	
+	private DataSource dataSource;
+	private JdbcTemplate jdbcTemplateObject;
+	
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
+		this.jdbcTemplateObject = new JdbcTemplate(dataSource);
+	}
+	
 	@Override
 	public List<Citta> getCitiesByNation(String countrycode) {
-		List<Citta> list = null;
-		Connection conn = ConnectionManager.getConnection();
-		PreparedStatement prepStat = null;
-		try{
-
-			String sql = "SELECT id,name, district, population, countrycode from city where countrycode= ?";
-			prepStat= conn.prepareStatement(sql);
-			prepStat.setString(1, countrycode);
-			ResultSet rs = prepStat.executeQuery();
-			list = new ArrayList<>();
-			while(rs.next()){
-				Citta city= new Citta();
-				int id= rs.getInt("id");
-				String name = rs.getString("name");
-				String district = rs.getString("district");
-				int population = rs.getInt("population");
-				String countryCode = rs.getString("countrycode");
-				city.setId(id);
-				city.setName(name);
-				city.setDistrict(district);
-				city.setPopulation(population);
-				city.setCountryCode(countryCode);
-				list.add(city);
-			}
-
-			rs.close();
-			prepStat.close();
-			conn.close();
-		}catch(SQLException se){
-			se.printStackTrace();
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally{
-			try{
-				if(prepStat!=null)
-					prepStat.close();
-			}catch(SQLException se2){
-			}
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				se.printStackTrace();
-			}
-		}
-		System.out.println("Goodbye!");
+		List<Citta> list = new ArrayList<Citta>();
+		String sql = "SELECT * from city where countrycode= ?";
+		list = this.jdbcTemplateObject.query(sql, new Object[]{countrycode}, new CityMapper());	
 		return list;
 	}
-
 
 	@Override
 	public List<Citta> cercaCitta(String cittaCercata) {
-
-		List<Citta> list = null;
-		Connection conn = ConnectionManager.getConnection();
-		PreparedStatement prepStat = null;
-		try{
-
-			String sql = "SELECT id, name, district, population, countrycode from city where name like ?";
-			prepStat= conn.prepareStatement(sql);
-			prepStat.setString(1, cittaCercata+ "%");
-			ResultSet rs =prepStat.executeQuery();
-			list = new ArrayList<>();
-
-			while(rs.next()){
-				Citta city= new Citta();
-
-				int id= rs.getInt("id");
-				String name = rs.getString("name");
-				String district = rs.getString("district");
-				int population = rs.getInt("population");
-				String countryCode = rs.getString("countrycode");
-				city.setId(id);
-				city.setName(name);
-				city.setDistrict(district);
-				city.setPopulation(population);
-				city.setCountryCode(countryCode);
-				list.add(city);
-			}
-
-
-			rs.close();
-			prepStat.close();
-			conn.close();
-		}catch(SQLException se){
-
-			se.printStackTrace();
-		}catch(Exception e){
-
-			e.printStackTrace();
-		}finally{
-
-			try{
-				if(prepStat!=null)
-					prepStat.close();
-			}catch(SQLException se2){
-			}
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				se.printStackTrace();
-			}
-		}
-		System.out.println("Goodbye!");
+		List<Citta> list = new ArrayList<Citta>();
+		String sql = "SELECT * from city where name like ?";
+		list = this.jdbcTemplateObject.query(sql, new Object[]{cittaCercata+"%"}, new CityMapper());
 		return list;
 	}
-
-
+	
 	@Override
 	public void eliminaCitta(int idCitta) {
-
-		Connection conn = ConnectionManager.getConnection();
-		PreparedStatement prepStat = null;
-
-		try{
-
-			String sql = "DELETE from city WHERE id=?";
-			prepStat= conn.prepareStatement(sql);
-			prepStat.setInt(1, idCitta);
-			prepStat.executeUpdate();	
-
-		}catch(SQLException se){
-
-			se.printStackTrace();
-		}catch(Exception e){
-
-			e.printStackTrace();
-		}finally{
-
-			try{
-				if(prepStat!=null)
-					prepStat.close();
-			}catch(SQLException se2){
-			}
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				se.printStackTrace();
-			}
-		}
+		String sql = "DELETE from city WHERE id=?";
+		this.jdbcTemplateObject.update(sql, idCitta);
 		return;
-
 	}
-
+	
 	@Override
 	public void aggiornaCitta(Citta cittaDaAggiornare) {
-
-		Connection conn = ConnectionManager.getConnection();
-		PreparedStatement prepStat = null;
-
-		try{
-
-			String sql = "UPDATE city " + 
-					" SET name=?, countrycode=?, district=?, population= ?" + 
-					" WHERE id=?";
-			prepStat= conn.prepareStatement(sql);
-			prepStat.setString(1, cittaDaAggiornare.getName());
-			prepStat.setString(2, cittaDaAggiornare.getCountryCode());
-			prepStat.setString(3, cittaDaAggiornare.getDistrict());
-			prepStat.setInt(4, cittaDaAggiornare.getPopulation());
-			prepStat.setInt(5, cittaDaAggiornare.getId());
-			prepStat.executeUpdate();	
-			prepStat.close();
-			conn.close();
-		}catch(SQLException se){
-
-			se.printStackTrace();
-		}catch(Exception e){
-
-			e.printStackTrace();
-		}finally{
-
-			try{
-				if(prepStat!=null)
-					prepStat.close();
-			}catch(SQLException se2){
-			}
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				se.printStackTrace();
-			}
-		}
-		System.out.println("Goodbye!");
-		return;
-
+		String sql = "UPDATE city " + 
+				" SET name=?, countrycode=?, district=?, population= ?" + 
+				" WHERE id=?";
+		this.jdbcTemplateObject.update(sql, new Object[] {cittaDaAggiornare.getName(), 
+				cittaDaAggiornare.getCountryCode(), cittaDaAggiornare.getDistrict(), 
+				cittaDaAggiornare.getPopulation(), cittaDaAggiornare.getId() } );
 	}
-
+	
 	@Override
 	public Citta cittaDaModificare(int id) {
 		Citta city= new Citta();
-		Connection conn = ConnectionManager.getConnection();
-		PreparedStatement prepStat = null;
-		try{
-
-			String sql = "SELECT name, district, population, countrycode from city " + 
-					"where id = ?";
-			prepStat= conn.prepareStatement(sql);
-			prepStat.setInt(1, id);
-			ResultSet rs =prepStat.executeQuery();
-
-			while(rs.next()){
-
-				String name = rs.getString("Name");
-				String district = rs.getString("district");
-				int population = rs.getInt("population");
-				String countryCode= rs.getString("countrycode");
-				city.setName(name);
-				city.setDistrict(district);
-				city.setPopulation(population);
-				city.setId(id);
-				city.setCountryCode(countryCode);
-			}
-
-			rs.close();
-			prepStat.close();
-			conn.close();
-		}catch(SQLException se){
-
-			se.printStackTrace();
-		}catch(Exception e){
-
-			e.printStackTrace();
-		}finally{
-
-			try{
-				if(prepStat!=null)
-					prepStat.close();
-			}catch(SQLException se2){
-			}
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				se.printStackTrace();
-			}
-		}
-
-		System.out.println("Goodbye!");
-		return city;
+		String sql = "SELECT * from city where id = ?";
+		city = this.jdbcTemplateObject.queryForObject(sql, new Object[]{id}, new CityMapper());
+	    return city;
 	}
-
+	
 	@Override
 	public void inserisciCitta(Citta cittaDaInserire) {
-		Connection conn = ConnectionManager.getConnection();
-		PreparedStatement prepStat = null;
-
-		try{
-
-			String sql = "INSERT INTO city (id, Name, CountryCode, District, Population)" + 
-					" values (?, ?, ?, ?, ?)";
-			prepStat= conn.prepareStatement(sql);
-			prepStat.setInt(1, cittaDaInserire.getId());
-			prepStat.setString(2, cittaDaInserire.getName());
-			prepStat.setString(3, cittaDaInserire.getCountryCode());
-			prepStat.setString(4, cittaDaInserire.getDistrict());
-			prepStat.setInt(5, cittaDaInserire.getPopulation());
-			prepStat.executeUpdate();	
-
-			prepStat.close();
-			conn.close();
-		}catch(SQLException se){
-
-			se.printStackTrace();
-		}catch(Exception e){
-
-			e.printStackTrace();
-		}finally{
-
-			try{
-				if(prepStat!=null)
-					prepStat.close();
-			}catch(SQLException se2){
-			}
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				se.printStackTrace();
-			}
-		}
-		System.out.println("Goodbye!");
-		return;
-
+		String sql = "INSERT INTO city (id, Name, CountryCode, District, Population)" + 
+				" values (?, ?, ?, ?, ?)";
+		this.jdbcTemplateObject.update(sql, new Object[] {cittaDaInserire.getId(), 
+				cittaDaInserire.getName(), cittaDaInserire.getCountryCode(), 
+				cittaDaInserire.getDistrict(), cittaDaInserire.getPopulation() } );
 	}
 
 }

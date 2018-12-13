@@ -18,10 +18,9 @@ import it.objectmethod.webappmondospring.model.Nazione;
 @Controller
 public class NationController {
 
-//	@Autowired
-//	private IDaoNazione daoNazione;
-	
-	IDaoNazione daoNazione= new DaoNazioneImpl();
+	@Autowired
+	private IDaoNazione daoNazione;
+
 	
 	@GetMapping("/runContinenti")
 	public String allcontinents(ModelMap model) {
@@ -37,11 +36,5 @@ public class NationController {
 		return "listanazioni";
 	}
 	
-//	@GetMapping("/runAggiornamentoForm")
-//	public String aggiornamentoForm(ModelMap model) {
-//		List<Nazione> list = daoNazione.allNations();
-//		model.addAttribute("allNations", list);
-//		return "modificaSalvaCitta";
-//	}
 	
 }

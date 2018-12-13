@@ -49,14 +49,12 @@
 						type="number" min="0" value="${cittaDaModificare.population}">
 					</td>
 
-
-
 				</tr>
 
 			</table>
 
 			<input name="id" type="hidden" value="${cittaDaModificare.id}">
-
+			
 			<br> <input name="SalvaCitta" type="submit" value="Salva Citta">
 
 		</form>

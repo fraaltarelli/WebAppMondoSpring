@@ -26,14 +26,14 @@
 		<property name="password" value="root" />
 	</bean>
 
-	<!-- <bean id="daoNazione"
+	<bean id="daoNazione"
 		class="it.objectmethod.webappmondospring.dao.impl.DaoNazioneImpl">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	<bean id="daoCitta"
 		class="it.objectmethod.webappmondospring.dao.impl.DaoCittaImpl">
 		<property name="dataSource" ref="dataSource" />
-	</bean>  -->
+	</bean> 
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">

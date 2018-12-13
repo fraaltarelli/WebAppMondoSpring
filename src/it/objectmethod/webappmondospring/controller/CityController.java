@@ -12,19 +12,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import it.objectmethod.webappmondospring.dao.IDaoCitta;
 import it.objectmethod.webappmondospring.dao.IDaoNazione;
-import it.objectmethod.webappmondospring.dao.impl.DaoCittaImpl;
-import it.objectmethod.webappmondospring.dao.impl.DaoNazioneImpl;
 import it.objectmethod.webappmondospring.model.Citta;
 import it.objectmethod.webappmondospring.model.Nazione;
 
 @Controller
 public class CityController {
 
-//	@Autowired
-//	private IDaoCitta daoCitta;
+	@Autowired
+	private IDaoCitta daoCitta;
 	
-	IDaoCitta daoCitta= new DaoCittaImpl();
-	IDaoNazione daoNazione = new DaoNazioneImpl();
+	@Autowired
+	private IDaoNazione daoNazione;
+	
 	
 	@GetMapping("/runCitta")
 	public String listaCitta(@RequestParam("codiceNazioneSelezionata") String countrycode, ModelMap model) {
@@ -52,9 +51,10 @@ public class CityController {
 	
 	@GetMapping("/runAggiornamentoForm")
 	public String aggiornamentoForm(@RequestParam("idCitta") Integer idCitta, @RequestParam("countryCode") String countryCode, ModelMap model) {
-		Citta cittaDaModificare = daoCitta.cittaDaModificare(idCitta);
-//		List<Citta> listaCitta = daoCitta.getCitiesByNation(countryCode);
-//		model.addAttribute("listaCitta", listaCitta);
+		Citta cittaDaModificare = new Citta();
+		if (idCitta != 0) {
+		cittaDaModificare = daoCitta.cittaDaModificare(idCitta);
+		}
 		List<Nazione> list = daoNazione.allNations();
 		model.addAttribute("allNations", list);
 		model.addAttribute("cittaDaModificare", cittaDaModificare);
